@@ -1,0 +1,87 @@
+# ===========================
+# Laravel Ignore Rules
+# ===========================
+
+/vendor/
+/node_modules/
+.env
+.env.*
+Homestead.yaml
+Homestead.json
+/storage/*.key
+/public/storage
+/storage/logs
+/storage/framework
+
+# Laravel Mix build files
+/public/hot
+/public/storage
+/public/mix-manifest.json
+/public/js
+/public/css
+
+# Laravel IDE Helper
+/_ide_helper.php
+/_ide_helper_models.php
+
+# Laravel Telescope
+/storage/telescope
+
+# Laravel Debugbar
+/storage/debugbar
+
+
+# ===========================
+# Node.js Ignore Rules
+# ===========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+.pnpm-debug.log
+
+# Optional npm cache directory
+.npm
+
+# dotenv environment variables
+.env.test
+.env.development
+.env.production
+.env.local
+
+# Next.js build output
+.next/
+out/
+dist/
+
+# Nuxt.js
+.nuxt/
+
+# Bun
+.bun
+
+# ===========================
+# OS / Editor / IDE
+# ===========================
+
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# JetBrains (PhpStorm, WebStorm etc.)
+.idea/
+
+# Vim
+*.swp
+*.swo
+
+# MacOS
+.AppleDouble
+.LSOverride
+Icon?
