@@ -7,7 +7,7 @@ pipeline {
     IMAGE_TAG = "latest"
     DOCKERHUB_USERNAME = "macikel"
     GIT_REPO = "https://github.com/MAcikel/laravel-node-deploy.git"
-    EC2_PUBLIC_IP = "54.237.65.32"                 // <-- BURAYA EC2-2 IP adresini yaz
+    EC2_PUBLIC_IP = "54.237.65.32"
   }
 
   stages {
@@ -39,12 +39,10 @@ pipeline {
       steps {
         sshagent(credentials: [SSH_CREDENTIALS]) {
           sh """
-            ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} <<EOF
-              docker pull ${DOCKERHUB_USERNAME}/backend:${IMAGE_TAG}
-              docker pull ${DOCKERHUB_USERNAME}/frontend:${IMAGE_TAG}
-              docker-compose -f /home/ec2-user/docker-compose.yml down
-              docker-compose -f /home/ec2-user/docker-compose.yml up -d
-            EOF
+            ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} "docker pull ${DOCKERHUB_USERNAME}/backend:${IMAGE_TAG}"
+            ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} "docker pull ${DOCKERHUB_USERNAME}/frontend:${IMAGE_TAG}"
+            ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} "docker-compose -f /home/ec2-user/docker-compose.yml down"
+            ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} "docker-compose -f /home/ec2-user/docker-compose.yml up -d"
           """
         }
       }
