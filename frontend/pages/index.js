@@ -35,7 +35,7 @@ export default function Home() {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Yeni görev girin"
+          placeholder="Şimdi Yeni görev girin"
         />
         <button type="submit">Ekle</button>
       </form>
