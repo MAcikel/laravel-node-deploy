@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: ./frontend
+    image: macikel/frontend:latest
+    container_name: frontend
     ports:
       - "3000:3000"
     depends_on:
@@ -12,8 +12,8 @@ services:
       - app-network
 
   backend:
-    build:
-      context: ./backend
+    image: macikel/backend:latest
+    container_name: backend
     ports:
       - "8000:8000"
     depends_on:
@@ -28,6 +28,7 @@ services:
 
   db:
     image: mysql:8.0
+    container_name: db
     environment:
       MYSQL_DATABASE: todoapp
       MYSQL_ROOT_PASSWORD: root
