@@ -2,16 +2,17 @@ pipeline {
   agent any
 
   environment {
-    DOCKER_HUB_CREDENTIALS = credentials('dockerhub-id')
-    SSH_CREDENTIALS = credentials('ec2-ssh-id')
+    DOCKER_HUB_CREDENTIALS = 'dockerhub-id'         // Jenkins -> Credentials ID
+    SSH_CREDENTIALS = 'ec2-ssh-id'                  // Jenkins -> EC2 SSH Key ID
     IMAGE_TAG = "latest"
     DOCKERHUB_USERNAME = "macikel"
+    GIT_REPO = "https://github.com/MAcikel/laravel-node-deploy.git"
   }
 
   stages {
     stage('Clone') {
       steps {
-        git url: 'https://github.com/kullaniciadi/proje.git', branch: 'main'
+        git url: "${GIT_REPO}", branch: 'main', credentialsId: 'github-pat'
       }
     }
 
@@ -23,7 +24,7 @@ pipeline {
 
           withCredentials([usernamePassword(credentialsId: DOCKER_HUB_CREDENTIALS, passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
             sh """
-              echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+              echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin
               docker push macikel/backend:latest
               docker push macikel/frontend:latest
             """
