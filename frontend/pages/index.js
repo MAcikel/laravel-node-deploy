@@ -4,21 +4,23 @@ export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState('');
 
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`)
+    fetch(`${API_URL}/tasks`)
       .then(res => res.json())
       .then(data => setTasks(data));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({ title }),
-});
+    const res = await fetch(`${API_URL}/tasks`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ title }),
+    });
 
     if (res.ok) {
       const newTask = await res.json();
@@ -35,7 +37,7 @@ export default function Home() {
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          placeholder="Şimdi Yeni görev girin"
+          placeholder="Şimdi yeni görev girin"
         />
         <button type="submit">Ekle</button>
       </form>
