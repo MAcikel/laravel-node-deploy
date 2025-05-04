@@ -5,20 +5,20 @@ export default function Home() {
   const [title, setTitle] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/tasks')
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`)
       .then(res => res.json())
       .then(data => setTasks(data));
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:8000/api/tasks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ title }),
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({ title }),
+});
 
     if (res.ok) {
       const newTask = await res.json();
