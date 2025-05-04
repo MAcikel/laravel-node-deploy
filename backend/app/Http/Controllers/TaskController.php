@@ -9,18 +9,25 @@ class TaskController extends Controller
 {
     public function index()
     {
-        $tasks = Task::all();
-        return view('tasks.index', compact('tasks'));
+        return response()->json(Task::all());
     }
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'title' => 'required|max:255',
         ]);
 
-        Task::create(['title' => $request->title]);
+        $task = Task::create(['title' => $validated['title']]);
 
-        return redirect()->back();
+        return response()->json($task, 201); // 201: Created
+    }
+
+    public function destroy($id)
+    {
+        $task = Task::findOrFail($id);
+        $task->delete();
+
+        return response()->json(['message' => 'Task deleted successfully']);
     }
 }
